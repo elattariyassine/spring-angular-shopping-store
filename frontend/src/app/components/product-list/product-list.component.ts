@@ -11,7 +11,7 @@ import { CategoryService } from 'src/app/_shared/services/category.service';
 })
 export class ProductListComponent implements OnInit {
 
-  products: Product[];
+  products: Product[] = [];
   categoryId: number = null;
   keyword: string = null;
   constructor(private productService: ProductService, private route: ActivatedRoute, private categoryService: CategoryService) { }

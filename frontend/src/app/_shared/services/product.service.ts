@@ -32,4 +32,8 @@ export class ProductService {
       map(product => product._embedded.products)
     );
   }
+
+  getProductById(id: number){
+    return this.http.get<Product>(this.baseUrl + id);
+  }
 }

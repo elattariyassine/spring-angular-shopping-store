@@ -1,0 +1,19 @@
+<div class="main-content">
+    <div class="section-content section-content-p30">
+        <div class="container-fluid">
+            <div class="row">
+                <div>
+                    <img src="{{ product.imageUrl }}" class="img-responsive" width="200px">
+
+                    <h3>{{ product.name }}</h3>
+                    <div class="price">{{ product.unitPrice }}</div>
+                    <a href="shopping-detail.html" class="primary-btn">Add to cart</a>
+
+                    <h4>Product Description</h4>
+                    <p>{{ product.description }}</p>
+                    <a routerLink="/">Back to Product List</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
