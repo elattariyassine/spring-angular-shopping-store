@@ -13,7 +13,13 @@ export class ProductListComponent implements OnInit {
 
   products: Product[] = [];
   categoryId: number = null;
+  previousCategoryId: number;
   keyword: string = null;
+
+  pageNumber: number = 1;
+  pageSize: number = 10;
+  totalElements: number = 0;
+
   constructor(private productService: ProductService, private route: ActivatedRoute, private categoryService: CategoryService) { }
 
   ngOnInit() {
@@ -26,17 +32,29 @@ export class ProductListComponent implements OnInit {
   }
 
   getAllProducts(){
+    if(this.previousCategoryId != this.categoryId){
+      this.pageNumber = 1;
+    }
+    this.previousCategoryId = this.categoryId;
+    console.log('current category id' + this.categoryId + ' pageNumber '+this.pageNumber);
+
     if(this.categoryId == null && this.keyword == null){
       this.productService.findAll().subscribe(res => {
         this.products = res;
       });
     }
     else if (this.categoryId != null && this.keyword == null){
-      this.categoryService.findProductByCategory(this.categoryId).subscribe(res => {
-        this.products = res;
-        console.log(res);
+      // this.categoryService.findProductByCategory(this.categoryId).subscribe(res => {
+      //   this.products = res;
+      //   console.log(res);
+      // });
+      // this.categoryId = null;
+      this.categoryService.findProductByCategoryPaginate(this.pageNumber - 1, this.pageSize, this.categoryId).subscribe(data => {
+        this.products = data._embedded.products;
+        this.pageNumber = data.page.number + 1;
+        this.pageSize = data.page.size;
+        this.totalElements = data.page.totalElements;
       });
-      this.categoryId = null;
     }
     if(this.keyword != null){
       this.productService.findProductsByNameContaining(this.keyword)

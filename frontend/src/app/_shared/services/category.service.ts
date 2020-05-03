@@ -15,12 +15,24 @@ interface GetResponseForProduct {
     products: Product[];
   }
 }
+interface GetResponseProducts {
+  _embedded: {
+    products: Product[];
+  },
+  page: {
+    size: number,
+    totalElements: number,
+    totalPages: number,
+    number: number
+  }
+}
 @Injectable({
   providedIn: 'root'
 })
 export class CategoryService {
 
   private baseUrl = "http://localhost:8080/api/categories/";
+  private baseUrl2 = "http://localhost:8080/api/products/";
   
   constructor(private http: HttpClient) { }
 
@@ -35,5 +47,9 @@ export class CategoryService {
     .pipe(
       map(product => product._embedded.products)
     );;
+  }
+
+  findProductByCategoryPaginate(page:number, pageSize:number, id: number){
+    return this.http.get<GetResponseProducts>(`${this.baseUrl2}/search/findByCategoryId?id=${id}&page=${page}&size=${pageSize}`);
   }
 }
