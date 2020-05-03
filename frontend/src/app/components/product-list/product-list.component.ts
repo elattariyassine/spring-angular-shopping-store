@@ -17,7 +17,7 @@ export class ProductListComponent implements OnInit {
   keyword: string = null;
 
   pageNumber: number = 1;
-  pageSize: number = 10;
+  pageSize: number = 5;
   totalElements: number = 0;
 
   constructor(private productService: ProductService, private route: ActivatedRoute, private categoryService: CategoryService) { }
@@ -29,6 +29,12 @@ export class ProductListComponent implements OnInit {
       console.log(res['keyword']);
       this.getAllProducts();
     });
+  }
+
+  updatePageSize(PageSize){
+    this.pageSize = PageSize;
+    this.pageNumber = 1;
+    this.getAllProducts();
   }
 
   getAllProducts(){

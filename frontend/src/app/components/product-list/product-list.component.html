@@ -21,11 +21,26 @@
             </div>
             <div class="footer-pagination" *ngIf="products.length != 0">
                 <div class="row">
-                    <div class="col-md-6"></div>
-                    <div class="col-md-6">
+                    <div class="col-md-5"></div>
+                    <div class="col-md-7">
                         <div class="row">
-                            <div class="col-md-9" style="padding-left: 30%">
-                                <ngb-pagination [(page)]="pageNumber" [pageSize]="pageSize" [collectionSize]="totalElements" (pageChange)="getAllProducts()"></ngb-pagination>
+                            <div class="col-md-6">
+                                <ngb-pagination class="d-flex justify-content-end" [(page)]="pageNumber" [pageSize]="pageSize" [collectionSize]="totalElements" [boundaryLinks]="true" (pageChange)="getAllProducts()"></ngb-pagination>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md text-right">
+                                        <span>Page Size</span>
+                                    </div>
+                                    <div class="col-md">
+                                        <select (change)="updatePageSize($event.target.value)">
+                                            <option selected="true">5</option>
+                                            <option>10</option>
+                                            <option>20</option>
+                                            <option>50</option>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
