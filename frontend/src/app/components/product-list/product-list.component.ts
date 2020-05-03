@@ -3,6 +3,8 @@ import { ProductService } from 'src/app/_shared/services/product.service';
 import { Product } from 'src/app/_shared/models/product';
 import { ActivatedRoute } from '@angular/router';
 import { CategoryService } from 'src/app/_shared/services/category.service';
+import { CartService } from 'src/app/_shared/services/cart.service';
+import { CartItem } from 'src/app/_shared/models/cart-item';
 
 @Component({
   selector: 'product-list',
@@ -20,7 +22,7 @@ export class ProductListComponent implements OnInit {
   pageSize: number = 5;
   totalElements: number = 0;
 
-  constructor(private productService: ProductService, private route: ActivatedRoute, private categoryService: CategoryService) { }
+  constructor(private productService: ProductService, private route: ActivatedRoute, private categoryService: CategoryService, private cartService: CartService) { }
 
   ngOnInit() {
     this.route.params.subscribe(res => {
@@ -70,5 +72,10 @@ export class ProductListComponent implements OnInit {
       });
       this.keyword = null;
     }
+  }
+
+  addToCart(product: Product){
+    const TheCartItem = new CartItem(product);
+    this.cartService.addToCart(TheCartItem);
   }
 }

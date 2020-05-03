@@ -7,7 +7,7 @@
 
                     <h3>{{ product.name }}</h3>
                     <div class="price">{{ product.unitPrice }}</div>
-                    <a href="shopping-detail.html" class="primary-btn">Add to cart</a>
+                    <button (click)="addToCart(product)" class="btn btn-primary">Add to cart</button>
 
                     <h4>Product Description</h4>
                     <p>{{ product.description }}</p>
